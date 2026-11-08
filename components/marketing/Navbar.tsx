@@ -111,7 +111,7 @@ export function Navbar() {
           </a>
           <a
             href={siteConfig.signInUrl}
-            className="px-2 py-2 text-[14px] font-medium text-fg transition-colors hover:text-secondary"
+            className="inline-flex h-9 items-center rounded-full border border-white/25 px-4 text-[14px] font-medium text-fg transition-colors hover:border-white/50 hover:bg-white/[0.06]"
           >
             {siteConfig.cta.signIn}
           </a>
@@ -119,9 +119,9 @@ export function Navbar() {
             href={siteConfig.signupUrl}
             event="nav_cta_clicked"
             eventProps={{ location: "nav" }}
-            variant="link"
-            size="inline"
-            className="hidden px-2 py-2 font-medium sm:inline-flex"
+            variant="primary"
+            size="sm"
+            className="max-sm:hidden"
           >
             {siteConfig.cta.primary}
           </CtaLink>
@@ -167,7 +167,7 @@ export function Navbar() {
             <a
               href={siteConfig.signInUrl}
               onClick={close}
-              className="block py-2 text-[18px] font-medium text-fg"
+              className="flex h-12 items-center justify-center rounded-full border border-white/25 text-[16px] font-medium text-fg"
             >
               {siteConfig.cta.signIn}
             </a>

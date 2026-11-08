@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { track, type AnalyticsEvent, type AnalyticsProps } from "@/lib/analytics";
 import { scrollToId } from "@/lib/scroll";
+import { openTrialEvent, siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
 type Variant = "primary" | "secondary" | "ghost" | "link";
@@ -67,6 +68,11 @@ export function CtaLink({
       onClick={(e) => {
         track(event, eventProps);
         onNavigate?.();
+        if (href === siteConfig.signupUrl && !e.metaKey && !e.ctrlKey) {
+          e.preventDefault();
+          window.dispatchEvent(new CustomEvent(openTrialEvent, { detail: { plan: eventProps?.plan } }));
+          return;
+        }
         if (href.startsWith("#") && !e.metaKey && !e.ctrlKey) {
           if (scrollToId(href.slice(1))) e.preventDefault();
         }

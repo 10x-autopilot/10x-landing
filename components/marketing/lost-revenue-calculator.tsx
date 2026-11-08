@@ -8,10 +8,10 @@ import { siteConfig } from "@/lib/site-config";
 import { CtaLink } from "@/components/ui/CtaLink";
 
 const MISSED = { min: 1, max: 50, step: 1 };
-const VALUE = { min: 50, max: 500, step: 50 };
+const VALUE = { min: 25, max: 500, step: 25 };
 const CLOSE_RATE = 0.2;
 
-const rm = (n: number) => `RM ${Math.round(n).toLocaleString("en-US")}`;
+const usd = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 
 /** Missed enquiries a week × 4 weeks × what one customer is worth × a 20% close rate. */
 export function calculateLoss(missedPerWeek: number, customerValue: number) {
@@ -21,7 +21,7 @@ export function calculateLoss(missedPerWeek: number, customerValue: number) {
 
 export function LostRevenueCalculator() {
   const [missed, setMissed] = useState(10);
-  const [value, setValue] = useState(200);
+  const [value, setValue] = useState(100);
   const { monthlyLoss, yearlyLoss } = calculateLoss(missed, value);
   const used = () => trackOnce("calculator_used");
 
@@ -47,9 +47,9 @@ export function LostRevenueCalculator() {
           }}
         />
         <Slider
-          label="What one customer is worth (RM)"
-          display={rm(value)}
-          valueText={`${value} ringgit`}
+          label="What one customer is worth (USD)"
+          display={usd(value)}
+          valueText={`${value} US dollars`}
           value={value}
           {...VALUE}
           onChange={(n) => {
@@ -65,10 +65,10 @@ export function LostRevenueCalculator() {
 
       <div className="mx-auto mt-8 max-w-3xl border-t border-border pt-10 text-center" aria-live="polite">
         <p className="text-[clamp(1.75rem,1.1rem+3.2vw,3.5rem)] font-semibold leading-[1.1] tracking-[-0.04em]">
-          <AnimatedRM value={monthlyLoss} /> lost every month.
+          <AnimatedUsd value={monthlyLoss} /> lost every month.
         </p>
         <p className="mt-4 text-balance text-[17px] text-warning sm:text-[19px]">
-          That is <AnimatedRM value={yearlyLoss} /> bleeding out of your business every year.
+          That is <AnimatedUsd value={yearlyLoss} /> bleeding out of your business every year.
         </p>
       </div>
 
@@ -137,9 +137,9 @@ function Slider({
 }
 
 /** Counts up and down like an odometer as the value changes. Snaps when reduced motion is on. */
-function AnimatedRM({ value }: { value: number }) {
+function AnimatedUsd({ value }: { value: number }) {
   const spring = useSpring(value, { stiffness: 90, damping: 22, mass: 0.8, restDelta: 0.5, restSpeed: 0.5 });
-  const text = useTransform(spring, (v) => rm(v));
+  const text = useTransform(spring, (v) => usd(v));
   const reduced = useReducedMotionPref();
 
   useEffect(() => {
@@ -152,7 +152,7 @@ function AnimatedRM({ value }: { value: number }) {
       <m.span aria-hidden className="tabular-nums">
         {text}
       </m.span>
-      <span className="sr-only">{rm(value)}</span>
+      <span className="sr-only">{usd(value)}</span>
     </>
   );
 }

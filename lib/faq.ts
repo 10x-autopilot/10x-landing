@@ -23,7 +23,7 @@ export const faqs: FaqItem[] = [
   },
   {
     question: "Can I see how it would work for my business?",
-    answer: "Yes. Book a 30-Min Google Meet and we will walk through the workflow with you.",
+    answer: "Yes. Talk to our sales team and we will walk through the workflow with you.",
   },
   {
     question: "How do I get started?",

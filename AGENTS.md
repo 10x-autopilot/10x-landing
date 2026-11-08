@@ -6,7 +6,7 @@
 - Testimonial quotes are verbatim. Never edit them.
 - Never present unreleased capabilities as live, and never publish internal roadmap labels (coming soon, rollout, integration-dependent). Route setup-dependent questions to the sales form.
 - Public contact is `Sales Team` / `admin@tenx.my` and the company is `BTB SOLUTIONS`. Never add personal or founder phone numbers.
-- The page has seven chapters. Do not add sections.
+- The page has seven chapters (hero, team, leak, how it works, product demos, pricing and trust, sales contact). Do not add sections. Product demos are simulations with made-up data and must match `docs/CURRENT_FEATURES.md` in the app repo.
 - Checks: `npm run typecheck` and `npm run build` must pass.
 
 <!-- BEGIN:nextjs-agent-rules -->

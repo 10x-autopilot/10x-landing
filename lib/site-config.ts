@@ -5,7 +5,8 @@ export const siteConfig = {
   appUrl: "https://app.tenx.my",
   signInUrl: "https://app.tenx.my/sign-in",
   signupUrl: "https://app.tenx.my/register",
-  demoUrl: "https://app.tenx.my/book/btb-solutions",
+  /** Temporary: the public booking page returned 404, so this points at the sales contact form. Swap in a verified booking URL when Terminal 1 supplies one. */
+  demoUrl: "#audit",
   title: "10X | Your AI Operations Team",
   description:
     "Hire an AI operations team for a fraction of a human hire. Built for Malaysian service businesses.",
@@ -25,7 +26,7 @@ export const siteConfig = {
     primary: "Start 7-Day Free Trial",
     primaryShort: "Start 7-Day Free Trial",
     secondary: "See How It Works",
-    demo: "Book a 30-Min Google Meet",
+    demo: "Talk to our team",
     formSubmit: "Talk to our sales team",
     microcopy: "7 days free. Full access. We set it up with you.",
     app: "Open app",
@@ -33,6 +34,9 @@ export const siteConfig = {
   },
   copyrightYear: 2026,
 } as const;
+
+/** Window event that opens the free trial popup. */
+export const openTrialEvent = "open-trial-modal";
 
 export const salesMailto = `mailto:${siteConfig.contact.email}?subject=${encodeURIComponent("10X enquiry")}`;
 
@@ -63,6 +67,7 @@ export const chapters = [
   { id: sectionIds.team, num: "02", label: "Your AI team" },
   { id: sectionIds.leak, num: "03", label: "The leak" },
   { id: sectionIds.howItWorks, num: "04", label: "How it works" },
-  { id: sectionIds.pricing, num: "05", label: "Pricing & trust" },
-  { id: sectionIds.audit, num: "06", label: "Talk to us" },
+  { id: sectionIds.product, num: "05", label: "Inside the product" },
+  { id: sectionIds.pricing, num: "06", label: "Pricing & trust" },
+  { id: sectionIds.audit, num: "07", label: "Talk to us" },
 ] as const;

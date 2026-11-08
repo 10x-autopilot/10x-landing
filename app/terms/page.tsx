@@ -32,7 +32,7 @@ export default function TermsPage() {
 
       <h2>Pricing</h2>
       <p>
-        Prices shown are in Malaysian ringgit. Founding prices apply as described on the pricing section. Final pricing and
+        Prices shown are in US dollars. Founding prices apply as described on the pricing section. Final pricing and
         plan scope are confirmed in writing before any subscription starts. [Subscription terms to be finalised during
         legal review.]
       </p>

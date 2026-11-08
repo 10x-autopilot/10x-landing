@@ -48,7 +48,7 @@ export function homepageJsonLd() {
         publisher: { "@id": orgId },
         offers: {
           "@type": "AggregateOffer",
-          priceCurrency: "MYR",
+          priceCurrency: "USD",
           lowPrice: Math.min(...prices),
           highPrice: Math.max(...prices),
           offerCount: pricingPlans.length,

@@ -3,7 +3,7 @@
 import { m, type Variants } from "framer-motion";
 import { Check } from "lucide-react";
 import { useReducedMotionPref } from "@/lib/hooks/useMediaQuery";
-import { pricingCopy, pricingPlans } from "@/lib/pricing";
+import { pricingCopy, pricingPlans, setupCopy } from "@/lib/pricing";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import { ChapterHeader } from "@/components/ui/ChapterHeader";
@@ -15,7 +15,6 @@ import { Tilt } from "@/components/ui/Tilt";
 import { PricingViewTracker } from "./PricingViewTracker";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-const launch = pricingPlans.find((p) => p.slug === "launch") ?? pricingPlans[0];
 
 const grid: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 const card: Variants = {
@@ -26,12 +25,12 @@ const card: Variants = {
 /** Chapter 06 header and plans. Growth is the one featured card. */
 export function Pricing() {
   const reduced = useReducedMotionPref();
-  const format = (n: number) => `RM${Math.round(n).toLocaleString("en-US")}`;
+  const format = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 
   return (
     <>
       <div>
-        <ChapterHeader num="05" label="Pricing & trust" id="pricing-title" title={pricingCopy.title} lead={pricingCopy.lead} />
+        <ChapterHeader num="06" label="Pricing & trust" id="pricing-title" title={pricingCopy.title} lead={pricingCopy.lead} />
       </div>
 
       <div className="relative mt-12">
@@ -41,7 +40,7 @@ export function Pricing() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-stretch"
+          className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-stretch lg:mb-24"
         >
         {pricingPlans.map((plan) => (
             <m.li
@@ -49,7 +48,7 @@ export function Pricing() {
               variants={card}
               whileHover={reduced ? undefined : { scale: plan.highlighted ? 1.03 : 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
-              className={cn("min-w-0", plan.highlighted && "lg:-my-3")}
+              className={cn("relative min-w-0", plan.highlighted && "lg:-my-3")}
             >
               {/* The featured plan floats gently; the others stay still. */}
               <m.div
@@ -83,14 +82,16 @@ export function Pricing() {
                       </span>
                     ) : null}
                   </div>
-                  <p className="mt-3 text-[15px] text-secondary">{plan.description}</p>
+                  <p className="mt-3 text-[17px] font-medium leading-snug tracking-[-0.01em]">{plan.headline}</p>
 
                   <div className="mt-8">
                     <p className="flex flex-wrap items-baseline gap-x-1.5">
                       <CountUp to={plan.monthly} format={format} className="text-[44px] font-semibold leading-none tracking-[-0.04em] tabular-nums" />
                       <span className="text-[15px] text-secondary">/mo</span>
                     </p>
-                    <p className="mt-2 text-[14px] text-secondary">7 days free. Full access.</p>
+                    <p className="mt-2 text-[14px] text-secondary">{plan.subtext}</p>
+                    <p className="mt-1 text-[14px] text-secondary">7 days free. Full access.</p>
+                    <p className="mt-1 text-[14px] text-accent-text">{setupCopy.badge}</p>
                   </div>
 
                   <ul className="mt-8 space-y-3 border-t border-border pt-6">
@@ -120,6 +121,19 @@ export function Pricing() {
                 </article>
               </Tilt>
               </m.div>
+              {plan.badge ? (
+                <div className="relative mt-6 lg:absolute lg:inset-x-0 lg:top-full lg:mt-8">
+                  <m.span
+                    aria-hidden
+                    className="absolute -inset-1 rounded-xl bg-accent/50 blur-xl"
+                    animate={reduced ? { opacity: 0.6 } : { opacity: [0.4, 0.9, 0.4] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  <p className="relative rounded-xl border border-accent/70 bg-elevated px-4 py-3 text-center text-[14px] leading-snug text-fg">
+                    {plan.badge}
+                  </p>
+                </div>
+              ) : null}
             </m.li>
         ))}
         </m.ul>
@@ -127,7 +141,7 @@ export function Pricing() {
 
       <Reveal className="mx-auto mt-10 max-w-2xl text-center">
         <p className="text-balance text-[16px] text-secondary">
-          Compare: one junior hire costs RM2,500-3,500/month. 10X {pricingPlans[0].name} starts at{" "}
+          Compare: one junior hire costs about $600-800/month. 10X {pricingPlans[0].name} starts at{" "}
           <span className="text-fg">{format(pricingPlans[0].monthly)}/month</span>.
         </p>
       </Reveal>
