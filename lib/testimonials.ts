@@ -59,11 +59,6 @@ const data: TestimonialData[] = [
 
 export const testimonials: Testimonial[] = data.map((t) => ({ ...t, quote: t.text }));
 
-/** The three shown under the hero product: Marcus, Audrey, Elaine. */
-export const heroTestimonials = ["Marcus T. K. Loke", "Audrey Wong", "Elaine Choo"].map(
-  (name) => testimonials.find((t) => t.name === name)!,
-);
-
 export function initials(name: string) {
   return name
     .split(/\s+/)

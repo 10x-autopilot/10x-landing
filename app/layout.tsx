@@ -17,7 +17,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
+  metadataBase: new URL(siteConfig.url || "https://tenx.my"),
   title: {
     default: siteConfig.title,
     template: "%s | 10X",
